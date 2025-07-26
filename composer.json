@@ -1,0 +1,30 @@
+{
+    "name": "sms4jawaly/laravel-sdk",
+    "description": "SMS4Jawaly SDK for Laravel applications",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Jawaly",
+            "email": "support@4jawaly.com"
+        }
+    ],
+    "require": {
+        "php": ">=7.2",
+        "guzzlehttp/guzzle": "^7.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Sms4jawaly\\Laravel\\": "src/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Sms4jawaly\\Laravel\\Sms4jawalyServiceProvider"
+            ]
+        }
+    },
+    "minimum-stability": "stable",
+    "prefer-stable": true
+}
