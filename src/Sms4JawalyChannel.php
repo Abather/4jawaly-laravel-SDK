@@ -4,7 +4,7 @@ namespace Sms4jawaly\Laravel;
 
 use Illuminate\Notifications\Notification;
 
-class FourJawalyChannel
+class Sms4JawalyChannel
 {
     protected $client;
 

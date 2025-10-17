@@ -73,14 +73,14 @@ $response = Sms4jawaly::sendSms('Test message', ['966500000000'], '4jawaly');
 ### Use Notification Channel to Send Sms
 يمكنك ارسالة رسالة عن طريق ``to4Jawaly`` بالطريقة التالية:
 ```php
-use Sms4jawaly\Laravel\FourJawalyChannel;
+use Sms4jawaly\Laravel\Sms4JawalyChannel;
 use Sms4jawaly\Laravel\Message;
 
 class WelcomeNotification extends Notification
 {
     public function via($notifiable)
     {
-        return [FourJawalyChannel::class];
+        return [Sms4JawalyChannel::class];
     }
 
     public function to4Jawaly($notifiable): Message
