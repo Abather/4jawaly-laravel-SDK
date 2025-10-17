@@ -184,7 +184,6 @@ class Gateway
 
         try {
             $response = $this->client->post('/account/area/sms/send', [
-                'json' => [
                     'messages' => [
                         [
                             'text'    => $message,
@@ -192,7 +191,6 @@ class Gateway
                             'sender'  => $sender,
                         ],
                     ],
-                ],
             ]);
 
             $data = json_decode($response->getBody()->getContents(), true);
