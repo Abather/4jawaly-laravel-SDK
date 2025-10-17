@@ -75,6 +75,7 @@ $response = Sms4jawaly::sendSms('Test message', ['966500000000'], '4jawaly');
 ```php
 use Sms4jawaly\Laravel\FourJawalyChannel;
 use Sms4jawaly\Laravel\Message;
+
 class WelcomeNotification extends Notification
 {
     public function via($notifiable)
