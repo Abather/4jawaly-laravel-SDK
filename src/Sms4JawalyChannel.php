@@ -28,7 +28,6 @@ class Sms4JawalyChannel
         }
 
         $results = $this->client->sendSms(...$message->toArray());
-        dd($results);
     }
 
     protected function routeNotification($notifiable)
