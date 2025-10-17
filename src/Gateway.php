@@ -4,6 +4,8 @@ namespace Sms4jawaly\Laravel;
 
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\GuzzleException;
+use Illuminate\Support\Facades\Http;
+
 
 /**
  * Gateway class provides methods to interact with the Jawaly SMS API.
@@ -59,11 +61,8 @@ class Gateway
     {
         $this->apiKey = $apiKey;
         $this->apiSecret = $apiSecret;
-        $this->client = new Client([
-            'base_uri' => self::API_BASE_URL,
-            'headers' => $this->createHeaders(),
-            'http_errors' => false,
-        ]);
+        $this->client = Http::withHeaders($this->createHeaders())
+            ->baseUrl(self::API_BASE_URL);
     }
 
     /**
