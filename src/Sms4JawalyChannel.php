@@ -27,6 +27,7 @@ class Sms4JawalyChannel
             $message->phone($receiver);
         }
 
+        dd(...$message->toArray());
         $results = $this->client->sendSms(...$message->toArray());
         logger($results);
     }
