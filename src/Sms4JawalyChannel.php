@@ -33,7 +33,7 @@ class Sms4JawalyChannel
     protected function routeNotification($notifiable)
     {
         $receiver = $notifiable->routeNotificationFor('sms-4-jawaly')
-            ?? $notifiable->routeNotificationFor(FourJawalyChannel::class)
+            ?? $notifiable->routeNotificationFor(Sms4JawalyChannel::class)
             ?? $notifiable->{config('services.sms4jawaly.receiver_attribute', 'phone')} ?? null;
 
         if (!$receiver) {
