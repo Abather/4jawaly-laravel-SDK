@@ -21,6 +21,8 @@ Add your API credentials to your `.env` file and configure the `services.php` fi
 ```env
 SMS4JAWALY_API_KEY=your_api_key
 SMS4JAWALY_API_SECRET=your_api_secret
+SMS4JAWALY_DEFAULT_SENDER=4jawaly
+SMS4JAWALY_RECEIVER_ATTRIBUTE=phone
 ```
 
 ثم في ملف `config/services.php` أضف ما يلي تحت المصفوفة `services`:
@@ -31,6 +33,8 @@ Add the following under the `services` array in `config/services.php`:
 'sms4jawaly' => [
     'api_key'    => env('SMS4JAWALY_API_KEY'),
     'api_secret' => env('SMS4JAWALY_API_SECRET'),
+    'default_sender' => env('SMS4JAWALY_DEFAULT_SENDER'),
+    'receiver_attribute' => env('SMS4JAWALY_RECEIVER_ATTRIBUTE', 'phone'),
 ],
 ```
 
@@ -64,6 +68,47 @@ Or via the Facade:
 use Sms4jawaly\Laravel\Facades\Sms4jawaly;
 
 $response = Sms4jawaly::sendSms('Test message', ['966500000000'], '4jawaly');
+```
+
+###Use Notification Channel to Send Sms
+يمكنك ارسالة رسالة عن طريق ``to4Jawaly`` بالطريقة التالية:
+```php
+use Sms4jawaly\Laravel\FourJawalyChannel;
+use Sms4jawaly\Laravel\Message;
+class WelcomeNotification extends Notification
+{
+    public function via($notifiable)
+    {
+        return [FourJawalyChannel::class];
+    }
+
+    public function to4Jawaly($notifiable): Message
+    {
+        return Message::make("Welcome to our service!")
+            ->phone($notifiable->phone)// Optional: provide phone number
+            ->sender("4jawaly")// Optional: provide Sender Name, if you don't set default its required;
+    }
+}
+```
+
+### Simple Text Message
+For simple messages, you can return a string directly:
+
+```php
+public function to4Jawaly($notifiable): string
+{
+    return "Your verification code is: 123456";
+}
+```
+
+### On-Demand Notifications
+As per Laravel documentation, you can send notifications on-demand without associating them with a specific user:
+```php
+use App\Notifications\WelcomeNotification;
+use Illuminate\Support\Facades\Notification;
+
+Notification::route('sms-4-jawaly', '2018603478')
+    ->notify(new WelcomeNotification());
 ```
 
 ### جلب الرصيد | Get Balance
