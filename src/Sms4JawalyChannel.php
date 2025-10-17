@@ -27,7 +27,7 @@ class Sms4JawalyChannel
             $message->phone($receiver);
         }
 
-        $results = $this->client->sendSms(...$message->toArray());
+        $this->client->sendSms(...$message->toArray());
     }
 
     protected function routeNotification($notifiable)
