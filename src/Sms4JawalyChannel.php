@@ -34,7 +34,7 @@ class Sms4JawalyChannel
     {
         $receiver = $notifiable->routeNotificationFor('sms-4-jawaly')
             ?? $notifiable->routeNotificationFor(Sms4JawalyChannel::class)
-            ?? $notifiable->{config('services.sms4jawaly.receiver_attribute', 'phone')} ?? null;
+            ?? $notifiable->{config('sms-4-jawaly.receiver_attribute', 'phone')} ?? null;
 
         if (!$receiver) {
             return null;

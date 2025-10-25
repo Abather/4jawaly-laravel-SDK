@@ -22,7 +22,7 @@ class Sms4jawalyServiceProvider extends ServiceProvider
     {
         $this->app->singleton(Gateway::class, function ($app) {
             // Retrieve configuration from the services configuration file
-            $config = $app['config']['services.sms4jawaly'] ?? null;
+            $config = $app['config']['sms-4-jawaly'] ?? null;
 
             if (!$config || empty($config['api_key']) || empty($config['api_secret'])) {
                 throw new \InvalidArgumentException('Sms4jawaly configuration not set. Please add sms4jawaly credentials to config/services.php');
