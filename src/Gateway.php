@@ -2,9 +2,8 @@
 
 namespace Sms4jawaly\Laravel;
 
-use GuzzleHttp\Client;
-use GuzzleHttp\Exception\GuzzleException;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Http\Client\RequestException;
 
 
 /**
@@ -47,7 +46,7 @@ class Gateway
     /**
      * HTTP client used for making requests.
      *
-     * @var \GuzzleHttp\Client
+     * @var \Illuminate\Http\Client\PendingRequest
      */
     private $client;
 
@@ -78,20 +77,22 @@ class Gateway
     {
         try {
             $response = $this->client->get('/account/area/me/packages', [
-                'query' => [
-                    'is_active' => 1,
-                    'p_type'    => 1,
-                ],
+                'is_active' => 1,
+                'p_type'    => 1,
             ]);
 
-            $body = $response->getBody()->getContents();
-            $data = json_decode($body, true);
+            if ($response->failed()) {
+                return [
+                    'success' => false,
+                    'error'   => $response->body(),
+                ];
+            }
 
             return [
                 'success' => true,
-                'data'    => $data,
+                'data'    => $response->json(),
             ];
-        } catch (GuzzleException $e) {
+        } catch (RequestException $e) {
             return [
                 'success' => false,
                 'error'   => $e->getMessage(),
@@ -122,9 +123,17 @@ class Gateway
 
             do {
                 $response = $this->client->get('/account/area/senders', [
-                    'query' => ['page' => $page],
+                    'page' => $page,
                 ]);
-                $data = json_decode($response->getBody()->getContents(), true);
+
+                if ($response->failed()) {
+                    return [
+                        'success' => false,
+                        'error'   => $response->body(),
+                    ];
+                }
+
+                $data = $response->json();
                 $items = $data['items'] ?? [];
 
                 if (!empty($items['data'])) {
@@ -145,7 +154,7 @@ class Gateway
                 'default_senders'=> $defaultSenders,
                 'message'        => 'تم',
             ];
-        } catch (GuzzleException $e) {
+        } catch (RequestException $e) {
             return [
                 'success' => false,
                 'error'   => $e->getMessage(),
@@ -184,21 +193,28 @@ class Gateway
 
         try {
             $response = $this->client->post('/account/area/sms/send', [
-                    'messages' => [
-                        [
-                            'text'    => $message,
-                            'numbers' => $numbers,
-                            'sender'  => $sender,
-                        ],
+                'messages' => [
+                    [
+                        'text'    => $message,
+                        'numbers' => $numbers,
+                        'sender'  => $sender,
                     ],
+                ],
             ]);
 
-            $data = json_decode($response->getBody()->getContents(), true);
+            if ($response->failed()) {
+                $result['success'] = false;
+                $result['total_failed'] = count($numbers);
+                $result['errors'][$response->body()] = $numbers;
+                return $result;
+            }
+
+            $data = $response->json();
             $result['total_success'] = count($numbers);
             if (isset($data['job_id'])) {
                 $result['job_ids'][] = $data['job_id'];
             }
-        } catch (GuzzleException $e) {
+        } catch (RequestException $e) {
             $result['success'] = false;
             $result['total_failed'] = count($numbers);
             $result['errors'][$e->getMessage()] = $numbers;
