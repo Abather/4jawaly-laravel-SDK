@@ -45,6 +45,12 @@ class Sms4jawalyServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+        $this->publishes([
+
+            __DIR__.'/../config/sms-4-jawaly.php' => config_path('sms-4-jawaly.php'),
+
+        ]);
+
         // Nothing to boot
     }
 }

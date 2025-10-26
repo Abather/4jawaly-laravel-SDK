@@ -44,7 +44,7 @@ class Message
 
     public function getSender()
     {
-        return $this->sender?:config("services.sms4jawaly.default_sender");
+        return $this->sender?:config("sms-4-jawaly.default_sender");
     }
 
     public function toArray()
