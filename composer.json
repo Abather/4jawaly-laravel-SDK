@@ -1,12 +1,13 @@
 {
-    "name": "sms4jawaly/laravel-sdk",
+    "name": "abather/sms4jawaly",
     "description": "SMS4Jawaly SDK for Laravel applications",
     "type": "library",
     "license": "MIT",
+    "version": "1.0",
     "authors": [
         {
-            "name": "Jawaly",
-            "email": "support@4jawaly.com"
+            "name": "Mohammed Sadiq",
+            "email": "m.abather@gmail.com"
         }
     ],
     "require": {

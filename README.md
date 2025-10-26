@@ -46,7 +46,7 @@ Install the package via Composer:
 قم بتثبيت الحزمة باستخدام Composer:
 
 ```bash
-composer require sms4jawaly/laravel-sdk
+composer require abather/sms4jawaly
 ```
 
 The service provider will be automatically registered thanks to Laravel's package auto-discovery.
@@ -452,7 +452,7 @@ Contributions are welcome! Please feel free to submit a Pull Request. For major 
 
 ```bash
 # Clone the repository
-git clone https://github.com/sms4jawaly/laravel-sdk.git
+git clone https://github.com/Abather/sms4jawaly.git
 
 # Install dependencies
 composer install
