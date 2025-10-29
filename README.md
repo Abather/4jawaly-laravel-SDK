@@ -2,6 +2,7 @@
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Total Downloads](https://img.shields.io/packagist/dt/abather/sms4jawaly.svg?style=flat-square)](https://packagist.org/packages/abather/sms4jawaly)
+
 A comprehensive Laravel SDK for the [4Jawaly](https://www.4jawaly.com/) SMS gateway service. This package provides an elegant and simple API for sending SMS messages, checking account balance, retrieving sender names, and seamless integration with Laravel's Notification system.
 
 مكتبة شاملة لإطار العمل Laravel للتكامل مع خدمة بوابة الرسائل القصيرة [فورجوالي](https://www.4jawaly.com/). توفر هذه الحزمة واجهة برمجية بسيطة وأنيقة لإرسال الرسائل النصية القصيرة، والاطلاع على رصيد الحساب، واستعراض أسماء المرسلين، مع دعم كامل لنظام الإشعارات في Laravel.
